@@ -1,0 +1,2 @@
+class FlashcardController < ApplicationController
+end
