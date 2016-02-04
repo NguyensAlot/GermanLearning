@@ -1,101 +1,128 @@
 <!DOCTYPE html>
 <head>
-    <title>GL: Flash Cards</title>
+  <title>GL: Flash Cards</title>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-
-    <div id="newCards" >
-        <center>
-            Front:<input type="text" id="newFront" name="front"/>
-            Back: <input type="text" id="newBack" name="back"/>
-            <input value="Add" type="button" onclick="userEnter();"/>
-        </center>
+  <h1 class="text-center">#insert_flashcard_set_title</h1>
+  
+  <div id="newCards" class="text-center">
+    Front:<input type="text" id="newFront" name="front"/>
+    Back: <input type="text" id="newBack" name="back"/>
+    <input value="Add" type="button" onclick="userEnter();"/>
+  </div>
+  
+    <div id="cardButton" class="container center-block">
+      <p id="cardText" class="text-center"></p>
     </div>
+    <!--<div id="bookmarkButton" class="glyphicon glyphicon-bookmark" onClick="alert('hello')"></div>-->
 
-    <center><h1>French Demonstration</h1></center>
+  <div class="container text-center">
+      <input type="button" id="prevCard" class="btn btn-default" value="previous" onclick="flashcardHandler.cardMove(-1);"/>
+      <span id="positionIndex">0/0</span>
+      <input type="button" id="nextCard" class="btn btn-default" value="next" onclick="flashcardHandler.cardMove(1);"/>
+  </div>  
+  
+  <script> 
+    // handle empty strings
+    String.prototype.isEmpty = function() 
+    {
+      return (this.length === 0 || !this.trim());
+    };
 
-    <div id="cardButton" ><p id="cardText"></p></div>
+    function Card(front, back)
+    {
+      this.frontVal = front;
+      this.backVal = back;
+      
+      this.display = function(side)
+      {
+        if( side === 0 ) return this.frontVal;
+        else return this.backVal;
+      };
+    }
+        
+    // class to handle flashcards
+    var flashcardHandler = 
+    {
+      // set containing all flashcards
+      flashCardSet: [],
+      // current card index in set
+      cardIndex: 0,
+      // object that will contain flashcard text
+      cardButton: document.getElementById("cardButton"),
+      // flashcard text
+      cardText: document.getElementById("cardText"),
+      // index of current card in set, for display
+      cardPosition: document.getElementById("positionIndex"),
+      // front or back side of flashcard
+      cardSide: 0,
 
-    <p>
-        <input type="button" id="prevCard" value="previous" onclick="flashCardHandler.cardMove(-1);"/>
-        <span id="positionIndex">0/0</span>
-        <input type="button" id="nextCard" value="next" onclick="flashCardHandler.cardMove(1);"/>
-    </p>
-
-    <script> 
-        String.prototype.isEmpty = function() {
-            return (this.length === 0 || !this.trim());
-        };
-
-        function Card(front, back){
-            this.frontVal = front;
-            this.backVal = back;
-
-            this.display = function(side){
-                if( side === 0 ){
-                    return this.frontVal;
-                }else{
-                    return this.backVal;
-                }
-            };
+      // new card
+      cardAdd: function(back, front)
+      {
+        this.flashCardSet.push(new Card(back, front));
+      },
+      // updates card count and display card depending on side
+      cardUpdate: function()
+      {
+        var curCard = this.flashCardSet[ this.cardIndex ];
+        this.cardText.innerHTML = curCard.display( this.cardSide );
+        this.cardPosition.innerHTML = (this.cardIndex + 1) + "/" + this.flashCardSet.length;
+      },
+      // changing sides
+      cardFlip: function()
+      {
+        this.cardSide = (this.cardSide + 1) % 2;
+      },
+      // get next or previous card
+      cardMove: function(moveBy)
+      {
+        this.cardIndex += moveBy;
+        if( this. cardIndex < 0 )
+        {
+          this.cardIndex += this.flashCardSet.length;
         }
+        this.cardIndex = this.cardIndex % this.flashCardSet.length;
 
-        var flashCardHandler = {
-            flashCardSet: [],
-            cardInd: 0,
-            cardButton: document.getElementById("cardButton"),
-            cardText: document.getElementById("cardText"),
-            cardTPosition: document.getElementById("positionIndex"),
-            cardSide: 0,
+        this.cardSide = 0;// Set back to front
+        this.cardUpdate();
+      },
+      // sequence of actions: flip then display
+      cardTap: function()
+      {
+        this.cardFlip();
+        this.cardUpdate();// Display card
+      }
+    };
 
-            cardAdd: function(back, front){
-                this.flashCardSet.push( new Card(back, front) );
-            },
-            cardUpdate: function(){
-                var curCard = this.flashCardSet[ this.cardInd ];
-                this.cardText.innerHTML = curCard.display( this.cardSide );
-                this.cardTPosition.innerHTML = (this.cardInd+1)+"/"+this.flashCardSet.length;
-            },
-            cardFlip: function(){
-                this.cardSide = (this.cardSide + 1) % 2;
-            },
-            cardMove: function(moveBy){
-                this.cardInd += moveBy;
-                if( this. cardInd < 0 ){
-                    this.cardInd += this.flashCardSet.length;
-                }
-                this.cardInd = this.cardInd % this.flashCardSet.length;
+    // add sample words
+    flashcardHandler.cardAdd("Hello", "Guten Tag");
+    flashcardHandler.cardAdd("Goodbye", "Ciao");
+    flashcardHandler.cardAdd("Good Night", "Gute Nacht");
+    flashcardHandler.cardUpdate();
 
-                this.cardSide = 0;// Set back to front
-                this.cardUpdate();
-            },
-            cardTap: function(){
-                this.cardFlip();
-                this.cardUpdate();// Display card
-            }
-        };
+    // function to handle card adding
+    var userEnter = function()
+    {
+      var nFront = document.getElementById("newFront"),
+          nBack = document.getElementById("newBack");
 
-        flashCardHandler.cardAdd("Hello or Good bye","Salut");
-        flashCardHandler.cardAdd("Hello or Good Morning","Bonjour");
-        flashCardHandler.cardAdd("Good Night","Bonne nuit!");
-        flashCardHandler.cardUpdate();
+      if(nFront.value.isEmpty() || nBack.value.isEmpty()) return;
 
-        var userEnter = function(){
-            var nFront = document.getElementById("newFront"),
-                nBack = document.getElementById("newBack");
+      flashcardHandler.cardAdd(nFront.value, nBack.value);
+      flashcardHandler.cardIndex = flashcardHandler.flashCardSet.length - 1;
+      flashcardHandler.cardSide = 0;
+      nFront.value = "";
+      nBack.value = "";
+      flashcardHandler.cardUpdate();
+    }
 
-            if( nFront.value.isEmpty() || nBack.value.isEmpty() )
-                return;
-
-            flashCardHandler.cardAdd(nFront.value,nBack.value);
-            nFront.value="";
-            nBack.value="";
-            flashCardHandler.cardUpdate();
-        }
-
-        flashCardHandler.cardButton.addEventListener('click', function(){ flashCardHandler.cardTap();} );
-
-    </script>
-
+    flashcardHandler.cardButton.addEventListener('click', function(){ flashcardHandler.cardTap();} );
+    
+    
+  </script>
 </body>
