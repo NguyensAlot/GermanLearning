@@ -26,12 +26,13 @@ gem 'rails_layout'
 gem 'factory_girl_rails'
 gem 'faker'
 gem 'rspec-rails'
-
+gem 'high_voltage'
+gem 'spring-commands-rspec'
 
 group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  # Use sqlite3 as the database for Active Record
+  # Use sqlite3 as the database for Active Record only during development
   gem 'sqlite3'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
@@ -39,15 +40,6 @@ group :development do
   gem 'spring'
   gem 'better_errors'
   gem 'quiet_assets'
-  
-  gem 'high_voltage'
-  gem 'spring-commands-rspec'
-  
-  #gem 'web-console', '~> 2.0'
-  #gem 'spring'
-  #gem 'better_errors'
-  #gem 'sqlite3'
-  #gem 'byebug'
 end
 
 group :test do
