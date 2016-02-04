@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html>
 <head>
   <title>GL: Flash Cards</title>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -15,7 +16,7 @@
     <input value="Add" type="button" onclick="userEnter();"/>
   </div>
   
-    <div id="cardButton" class="container center-block">
+    <div id="cardButton" class="container center-block" onclick="flashcardHandler.cardTap();">
       <p id="cardText" class="text-center"></p>
     </div>
     <!--<div id="bookmarkButton" class="glyphicon glyphicon-bookmark" onClick="alert('hello')"></div>-->
@@ -121,8 +122,6 @@
       flashcardHandler.cardUpdate();
     }
 
-    flashcardHandler.cardButton.addEventListener('click', function(){ flashcardHandler.cardTap();} );
-    
-    
   </script>
 </body>
+</html>
