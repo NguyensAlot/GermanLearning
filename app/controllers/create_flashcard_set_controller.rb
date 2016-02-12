@@ -1,5 +1,10 @@
 class CreateFlashcardSetController < ApplicationController
-  def create
+  def index
+    @flashcards = Flashcards.find(:all)
     
+  end
+  
+  def new
+    @flashcards = Flashcards.new
   end
 end
