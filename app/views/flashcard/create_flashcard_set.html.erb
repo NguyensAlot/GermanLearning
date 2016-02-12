@@ -2,99 +2,39 @@
 <html>
 <head>
 	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script type="text/javascript" src="assets/javascripts/create_flashcard_set.js"></script>
 </head>
 
 <body>
-  <div class="text-center">
-    <div id="flashcardSetContainer" class="form-group center-block">
-      <input type="text" class="form-control" placeholder="Title" autofocus></input>
+  <div id="createFlashcardForm" class="text-center">
+    <%= form_for :flashcards do |f| %>
+      <div id="flashcardSetContainer" class="form-group center-block">
       
-      <div id="savedCards"></div>
-      
-        <label id="cardNumber">Enter your word and definition</label>
-        <input type="text" id="frontOfCard" class="form-control" placeholder="front"></input>
-        <input type="text" id="backOfCard" class="form-control" placeholder="back" onkeydown = "if (event.keyCode == 13) document.getElementById('addCardBtn').click()"></input>
-    </div>
+        <div>
+          <%= f.label "Title" %><br>
+          <%= f.text_field :set_name, :id => "flashcardTitle", :placeholder => "Title", :class => "form-control"%>
+        </div>
+        <!--<input type="text" class="form-control" placeholder="Title" autofocus></input>-->
     
-    <button id="addCardBtn" class="btn btn-default" onclick="flashcardHandler.cardAdd();" >Add</button>
-    <button type="submit" class="btn btn-default" onclick="flashcardHandler.cardBtn()">Create!</button>
-    <div id="displaySet"></div>
-    <!--<h1><%= link_to 'Practice Flashcards', practice_flashcards_path, :class => 'button center' %></h1>-->
+        <div id="savedCards"></div>
+    
+        <label id="cardNumber">Enter your word and definition</label><br>
+        <%= f.text_field :word, :id => "frontOfCard", :placeholder => "front", :class => "form-control"%>
+        <%= f.text_field :definition, :id => "backOfCard", :placeholder => "back", :class => "form-control" %>
+        <!--<input type="text" id="frontOfCard" class="form-control" placeholder="front"></input>-->
+        <!--<input type="text" id="backOfCard" class="form-control" placeholder="back" onkeydown = "if (event.keyCode == 13) document.getElementById('addCardBtn').click()"></input>-->
+      </div>
+  
+      <button id="addCardBtn" class="btn btn-default" onclick="flashcardHandler.cardAdd();" >Add</button>
+    
+      <%= f.submit "Create", :class => "btn btn-default" %>
+    <!--<button type="submit" class="btn btn-default" onclick="flashcardHandler.cardBtn()">Create!</button>-->
+      <div id="displaySet"></div>
+    
+      <h1><%= link_to 'Practice Flashcards', practice_flashcards_path, :class => 'button center' %></h1>
+    <% end %>
   </div>
 
-  <script>
-    // card class
-  	function Card(front, back)
-    {
-      this.frontVal = front;
-      this.backVal = back;
-      
-      this.display = function(side)
-      {
-        if( side === 0 ) return this.frontVal;
-        else return this.backVal;
-      };
-    }
-
-    var flashcardHandler =
-    {
-      flashcardSet: [],
-    	//someSet: [],
-    	fcContainer: document.getElementById("savedCards"),
-      //labelElement.innerHTML = cardIndex + 1;
-      cardIndex: 1,
-
-      cardBtn: function()
-      {
-        var displaySet = document.getElementById("displaySet");
-        for (var i = 0; i < this.flashcardSet.length; i++)
-        {
-          displaySet.innerHTML = displaySet.innerHTML + '<span id="listCardFront' + this.cardIndex + '">'+i+this.flashcardSet[i].display(0)+'</span> \
-                                      <span id="listCardBack'+ this.cardIndex +'">' + this.flashcardSet[i].display(1) + '</span><hr>';
-                                    
-        }
-      },
-
-      cardAdd: function()
-      {
-       
-        // get the 2 words
-       	  var front = document.getElementById("frontOfCard");
-          var back = document.getElementById("backOfCard");
-          // store in set
-          this.flashcardSet.push(new Card(front.value, back.value));
-       	  
-          //listElement.appendChild(labelElement);
-          this.fcContainer.innerHTML = this.fcContainer.innerHTML + '<li id="cardNumber'+this.cardIndex+'"> \
-                                      <label>' + this.cardIndex + ' </label> \
-                                      <span id="frontOfCard' + this.cardIndex + '">'+this.flashcardSet[this.cardIndex-1].display(0)+'</span> \
-                                      <span id="backOfCard'+ this.cardIndex +'">' + this.flashcardSet[this.cardIndex-1].display(1) + '</span> \
-                                      <span class="glyphicon glyphicon-remove" aria-hidden="true" onclick="flashcardHandler.cardRemove('+this.cardIndex+')"></span> \
-                                    </li><hr>';
-
-        //document.getElementById("savedCards").innerHTML += '<p>'+this.someSet[this.cardIndex].display(0)+'</p>';
-          window.scrollTo(0, document.body.scrollHeight);
-        this.cardIndex += 1;
-      },
-       
-      cardRemove: function(index)
-      {
-        var child = document.getElementById("cardNumber" + index);
-        child.remove();
-        var setIndex = index-2;
-        this.flashcardSet.splice(setIndex, 1);
-        //flashcardSet.remove()
-      },
-
-      cardStoreSet: function()
-      {
-
-      }
-       
-    }
-    
-    //document.getElementById("").addEventListener('click', flashcardHandler.cardAdd);
-  </script>
 
 </body>
 </html>
