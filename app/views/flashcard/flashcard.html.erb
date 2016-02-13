@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>GL: Flash Cards</title>
+  <title>GL: Flashcards</title>
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -26,6 +26,18 @@
       <span id="positionIndex">0/0</span>
       <input type="button" id="nextCard" class="btn btn-default" value="next" onclick="flashcardHandler.cardMove(1);"/>
   </div>  
+  
+  <div>
+    <table>
+      <tbody>
+        <%= @flashcards.each do |f| %>
+          <tr>
+            <%= render f.set_name %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
   
   <script> 
     // handle empty strings
