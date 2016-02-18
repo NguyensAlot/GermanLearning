@@ -1,2 +1,9 @@
-<h3>Flashcard Set</h3>
-<p><%= @flashcard.name if @flashcard.name %></p>
+<h3>Flashcards</h3>
+<% @flashcard.each do |set| %>
+  <tr>
+    <td><%= set.id %></td>
+    <td><%= set.set_name %></td>
+    <td><%= set.word %></td>
+    <td><%= set.definition %></td>
+  </tr><hr>
+<% end %>

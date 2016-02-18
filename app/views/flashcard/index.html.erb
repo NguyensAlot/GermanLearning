@@ -1,12 +1,15 @@
 <div class="container">
   <div class="row">
-    <h3>Users</h3>
+    <h3>Flashcard Sets</h3>
     <div class="column">
       <table class="table">
         <tbody>
-          <% @flashcards.each do |set| %>
+          <% @allFlashcards.each do |set| %>
             <tr>
-              <%= render set %>
+              <td><%= set.id %></td>
+              <td><%= set.set_name %></td>
+              <td><%= set.word %></td>
+              <td><%= set.definition %></td>
             </tr>
           <% end %>
         </tbody>

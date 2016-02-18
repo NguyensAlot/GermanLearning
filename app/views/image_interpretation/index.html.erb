@@ -1,0 +1,11 @@
+<h3>Images</h3>
+<div>
+  
+  <% @image.each do |i| %>
+    <tr>
+      <%= image_tag(i.source) %>
+    </tr><hr>
+  <% end %>
+
+  
+</div>

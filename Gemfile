@@ -40,6 +40,7 @@ group :development do
   gem 'spring'
   gem 'better_errors'
   gem 'quiet_assets'
+  gem 'protected_attributes'
 end
 
 group :test do

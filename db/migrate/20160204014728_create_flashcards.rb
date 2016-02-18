@@ -4,7 +4,6 @@ class CreateFlashcards < ActiveRecord::Migration
       t.text :word
       t.text :definition
       t.string :set_name
-      t.boolean :bookmarked
 
       t.timestamps null: false
     end

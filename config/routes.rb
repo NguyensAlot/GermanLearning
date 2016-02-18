@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   devise_for :users
   resources :users
   resources :flashcard
-  get 'create_flashcard_set', to: 'flashcard#create_flashcard_set'
+  resources :image_interpretation
+  match 'flashcard', to: 'flashcard#create', via: [:post]
+  get 'create_flashcard_set', to: 'flashcard#create'
   get 'practice_flashcards', to: 'flashcard#flashcard'
 end
