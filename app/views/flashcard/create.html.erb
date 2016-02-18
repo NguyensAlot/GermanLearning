@@ -1,7 +1,7 @@
 <head>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.js"></script> 
+  <script src="http://malsup.github.com/jquery.form.js"></script> 
 </head>
-
 <body>
   <div class="text-center">
       <div id="flashcardSetContainer" class="form-group center-block">
@@ -18,9 +18,9 @@
       </div>
   
     
-      <button id="addCardBtn" class="btn btn-default" onclick="flashcardHandler.cardAdd();" >Add</button>
+      <button id="addCardBtn" class="btn btn-default" onclick="flashcardHandler.cardAdd()" >Add</button>
     
-      <button type="submit" class="btn btn-default" onclick="flashcardHandler.cardStoreSet()">Create!</button>
+      <button type="submit" class="btn btn-default" onclick="flashcardHandler.cardStoreSetAJAX()">Create!</button>
       <div id="displaySet"></div>
     
       <h1><%= link_to 'Practice Flashcards', practice_flashcards_path, :class => 'button center' %></h1>
@@ -47,6 +47,7 @@
   	fcContainer: document.getElementById("savedCards"),
     cardIndex: 1,
 
+    // FOR TESTING
     cardSeeSet: function()
     {
       var displaySet = document.getElementById("displaySet");
@@ -82,9 +83,8 @@
     {
       var child = document.getElementById("cardNumber" + index);
       child.remove();
-      var setIndex = index-2;
+      var setIndex = index-1;
       this.flashcardSet.splice(setIndex, 1);
-      //flashcardSet.remove()
     },
     
     cardStoreSet: function()
@@ -93,18 +93,46 @@
       {
         var postFlashcard = '<form id="createFlashcardSet'+i+'" action="/flashcard" method="post" data-remote="true"> \
                               <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> \
-                              <input type="text" name="flashcard[set_name]" value="'+document.getElementById("set_name").value+'"> \
-                              <input type="text" name="flashcard[word]" value="'+this.flashcardSet[i].display(0)+'"> \
-                              <input type="text" name="flashcard[definition]" value="'+this.flashcardSet[i].display(1)+'"> \
+                              <input id="inp_set_name_'+i+'" type="text" name="flashcard[set_name]" value="'+document.getElementById("set_name").value+'"> \
+                              <input id="inp_word_'+i+'" type="text" name="flashcard[word]" value="'+this.flashcardSet[i].display(0)+'"> \
+                              <input id="inp_definition_'+i+'" type="text" name="flashcard[definition]" value="'+this.flashcardSet[i].display(1)+'"> \
                             </form>';
+        
         document.getElementById("invisibleForm").innerHTML += postFlashcard;
         document.getElementById("createFlashcardSet" + i).submit();
-        
         //document.getElementById("createFlashcardSet").remove();
+      }
+      
+      alert("Done!");
+    },
+    
+    // post using AJAX to prevent form from loading action URL. 
+    // AJAX will allow for asynchronous submits
+    cardStoreSetAJAX: function()
+    {
+      for (var i = 0; i < this.flashcardSet.length; i++)
+      {
+        var postFlashcard = '<form id="createFlashcardSet'+i+'" action="/flashcard" method="post" data-remote="true"> \
+                              <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>"> \
+                              <input id="inp_set_name_'+i+'" type="text" name="flashcard[set_name]" value="'+document.getElementById("set_name").value+'"> \
+                              <input id="inp_word_'+i+'" type="text" name="flashcard[word]" value="'+this.flashcardSet[i].display(0)+'"> \
+                              <input id="inp_definition_'+i+'" type="text" name="flashcard[definition]" value="'+this.flashcardSet[i].display(1)+'"> \
+                            </form>';
+        
+        document.getElementById("invisibleForm").innerHTML += postFlashcard;                    
+        var dataString = 'flashcard[set_name]=' + document.getElementById("set_name").value + '&flashcard[word]=' + this.flashcardSet[i].display(0) + '&flashcard[definition]=' + this.flashcardSet[i].display(1);
+        
+        
+        $.ajax({
+          type: "POST",
+          url: "/flashcard",
+          data: dataString,
+          success: document.getElementById("createFlashcardSet" + i).remove()
+        });
       }
       alert("Done!");
     }
-     
+    
   }
 </script>
 
