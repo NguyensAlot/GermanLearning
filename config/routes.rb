@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :users
   resources :flashcard
   resources :image_interpretation
+  resources :essay_sim
   match 'flashcard', to: 'flashcard#create', via: [:post]
   get 'create_flashcard_set', to: 'flashcard#create'
   get 'practice_flashcards', to: 'flashcard#flashcard'
