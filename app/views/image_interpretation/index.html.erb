@@ -1,11 +1,74 @@
+<head>
+  <style>
+  .pitt
+  {
+    title: <% @image.first().copyright %>
+  }
+  .localContainer 
+  {
+    width: 80%;
+    margin: 30px auto;
+    overflow: hidden;
+  }
+  .galleryItem
+  {
+    color: #797478;
+    float: left;
+    width: 16%;
+    height: 20%;
+    margin: 2% 2% 50px 2%;
+  }
+  .galleryItem h4
+  {
+    text-transform: uppercase;
+  }
+  .galleryItem img
+  {
+    max-width: 100%;  
+    width: 225px;
+    height: 225px;
+    -webkit-border-radius: 5px;
+   -moz-border-radius: 5px;
+   border-radius: 5px;
+  }
+  
+
+  /* MEDIA QUERIES*/
+  @media only screen and (max-width : 940px),
+  only screen and (max-device-width : 940px){
+  	.galleryItem {width: 21%;}
+  }
+
+  @media only screen and (max-width : 720px),
+  only screen and (max-device-width : 720px){
+  	.galleryItem {width: 29.33333%;}
+  }
+
+  @media only screen and (max-width : 530px),
+  only screen and (max-device-width : 530px){
+  	.galleryItem {width: 46%;}
+  }
+
+  @media only screen and (max-width : 320px),
+  only screen and (max-device-width : 320px){
+  	.galleryItem {width: 96%;}
+  	.galleryItem img {width: 96%;}
+  	.galleryItem h4 {font-size: 18px;}
+  	.galleryItem p, {font-size: 18px;}
+  }
+
+  </style>
+</head>
+
 <h3>Images</h3>
-<div>
+<div class="localContainer">
   
   <% @image.each do |i| %>
-    <tr>
-      <%= image_tag(i.source) %>
-    </tr><hr>
+    <div class="galleryItem">
+      <%= link_to image_tag(i.source, :class => 'pitt'), image_interpretation_path(i) %>
+      <h4><%= i.title %></h4>
+      <p><%= i.description %></p>
+    </div>
   <% end %>
 
-  
 </div>

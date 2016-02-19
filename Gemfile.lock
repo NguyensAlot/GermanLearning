@@ -234,6 +234,7 @@ DEPENDENCIES
   devise
   factory_girl_rails
   faker
+  ffi (~> 1.9.0)
   high_voltage
   jbuilder (= 2.2.3)
   jquery-rails

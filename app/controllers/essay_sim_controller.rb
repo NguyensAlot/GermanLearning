@@ -1,0 +1,2 @@
+class EssaySimController < ApplicationController
+end

@@ -28,6 +28,10 @@ gem 'faker'
 gem 'rspec-rails'
 gem 'high_voltage'
 gem 'spring-commands-rspec'
+# for allowing mass-assignment for model insert queries
+gem 'protected_attributes'
+# foreign function interface
+gem 'ffi', '~> 1.9.0'
 
 group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -40,7 +44,6 @@ group :development do
   gem 'spring'
   gem 'better_errors'
   gem 'quiet_assets'
-  gem 'protected_attributes'
 end
 
 group :test do
