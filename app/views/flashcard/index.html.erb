@@ -7,7 +7,7 @@
           <% @allFlashcards.each do |set| %>
             <tr>
               <td><%= set.id %></td>
-              <td><%= set.set_name %></td>
+              <td><%= link_to set.set_name, flashcard_path(set, :set_name => set.set_name ) %></td>
               <td><%= set.word %></td>
               <td><%= set.definition %></td>
             </tr>

@@ -8,6 +8,6 @@ class FlashcardController < ApplicationController
   end
   
   def show
-    @flashcard = Flashcard.all
-  end
+    @practiceSet = Flashcard.where('set_name' => params[:set_name])
+  end 
 end

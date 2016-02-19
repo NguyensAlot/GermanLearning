@@ -1,9 +1,95 @@
-<h3>Flashcards</h3>
-<% @flashcard.each do |set| %>
-  <tr>
-    <td><%= set.id %></td>
-    <td><%= set.set_name %></td>
-    <td><%= set.word %></td>
-    <td><%= set.definition %></td>
-  </tr><hr>
-<% end %>
+<head>
+  <title>GL: Flashcards</title>
+</head>
+<body>
+
+  <h3 class="text-center"><%= @practiceSet.first().set_name %></h3>
+  <div id="cardButton" class="container center-block" onclick="flashcardHandler.cardTap();">
+    <p id="cardText" class="text-center"></p>
+  </div>
+
+  <div class="container text-center">
+      <input type="button" id="prevCard" class="btn btn-default" value="<" onclick="flashcardHandler.cardMove(-1);"/>
+      <span id="positionIndex">0/0</span>
+      <input type="button" id="nextCard" class="btn btn-default" value=">" onclick="flashcardHandler.cardMove(1);"/>
+  </div>
+  
+  <button class="block-center" onclick="alert('hello')">click me</button>
+  
+  <script> 
+    function Card(front, back)
+    {
+      this.frontVal = front;
+      this.backVal = back;
+      
+      this.display = function(side)
+      {
+        if( side === 0 ) return this.frontVal;
+        else return this.backVal;
+      };
+    }
+        
+    // class to handle flashcards
+    var flashcardHandler = 
+    {
+      // set containing all flashcards
+      flashCardSet: [],
+      // current card index in set
+      cardIndex: 0,
+      // object that will contain flashcard text
+      cardButton: document.getElementById("cardButton"),
+      // flashcard text
+      cardText: document.getElementById("cardText"),
+      // index of current card in set, for display
+      cardPosition: document.getElementById("positionIndex"),
+      // front or back side of flashcard
+      cardSide: 0,
+
+      // new card
+      cardAdd: function(back, front)
+      {
+        this.flashCardSet.push(new Card(back, front));
+      },
+      // updates card count and display card depending on side
+      cardUpdate: function()
+      {
+        var curCard = this.flashCardSet[ this.cardIndex ];
+        this.cardText.innerHTML = curCard.display( this.cardSide );
+        this.cardPosition.innerHTML = (this.cardIndex + 1) + "/" + this.flashCardSet.length;
+      },
+      // changing sides
+      cardFlip: function()
+      {
+        this.cardSide = (this.cardSide + 1) % 2;
+      },
+      // get next or previous card
+      cardMove: function(moveBy)
+      {
+        this.cardIndex += moveBy;
+        if( this.cardIndex < 0 )
+        {
+          this.cardIndex += this.flashCardSet.length;
+        }
+        this.cardIndex = this.cardIndex % this.flashCardSet.length;
+
+        this.cardSide = 0;// Set back to front
+        this.cardUpdate();
+      },
+      // sequence of actions: flip then display
+      cardTap: function()
+      {
+        this.cardFlip();
+        this.cardUpdate();// Display card
+      },
+
+    };
+    
+    function setLoad()
+    {
+      <%= @practiceSet.each do |s| %>
+        flashcardHandler.flashcardSet.push(new Card(<%= s.definition %>, <%= s.word %>));
+        flashcardHandler.cardUpdate();
+      <% end %>
+    };
+  </script>
+</body>
