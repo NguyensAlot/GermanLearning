@@ -52,3 +52,5 @@ setLoad = ->
   flashcardHandler.cardUpdate()
   alert 'bye'
   return
+  
+  

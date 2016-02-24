@@ -1,20 +1,22 @@
-<head>
-  <title>GL: Flashcards</title>
-</head>
-<body>
+<h3 class="text-center"><%= @practiceSet.first().set_name %></h3>
+<div id="cardButton" class="container center-block" onclick="flashcardHandler.cardTap()">
+  <p id="cardText" class="text-center"></p>
+</div>
 
-  <h3 class="text-center"><%= @practiceSet.first().set_name %></h3>
-  <div id="cardButton" class="container center-block" onclick="flashcardHandler.cardTap();">
-    <p id="cardText" class="text-center"></p>
-  </div>
+<div class="container text-center">
+    <input type="button" id="prevCard" class="btn btn-default" value="<" onclick="flashcardHandler.cardMove(-1)"/>
+    <span id="positionIndex">0/0</span>
+    <input type="button" id="nextCard" class="btn btn-default" value=">" onclick="flashcardHandler.cardMove(1)"/>
+</div>
 
-  <div class="container text-center">
-      <input type="button" id="prevCard" class="btn btn-default" value="<" onclick="flashcardHandler.cardMove(-1);"/>
-      <span id="positionIndex">0/0</span>
-      <input type="button" id="nextCard" class="btn btn-default" value=">" onclick="flashcardHandler.cardMove(1);"/>
-  </div>
-  
-  <button class="block-center" onclick="alert('hello')">click me</button>
-  
-  <%= javascript_include_tag '/assets/javascripts/practiceFlashcard.js' %>
-</body>
+<hr>
+
+<div class="text-center"><button class="btn btn-default btn-lg" onclick="loadSet()">LOAD SET</button></div>
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<script>
+  function loadSet()
+  {
+    flashcardHandler.cardAdd('<%=raw @practiceSet.each.to_json %>');  
+  }
+</script>

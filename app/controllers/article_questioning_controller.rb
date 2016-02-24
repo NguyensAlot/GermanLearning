@@ -1,0 +1,2 @@
+class ArticleQuestioningController < ApplicationController
+end
