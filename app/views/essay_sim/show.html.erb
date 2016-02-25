@@ -1,22 +1,20 @@
-<head>
-  <style>
-    .essayText
-    {
-      width: 80%;
-      float: left;
-    }
-    .essayQuestions
-    {
-      width: 20%;
-      float: left;
-    }
-  </style>
-</head>
-<body>
-  <div class="localContainer">
-    <div class="essayText">
-      <%= render 'essay_sim/sameple_text' %>
-    </div>
-    <div class="essayQuestions"></div>
-  </div>
-</body>
+<h3 class="text-left">Essay Simulation</h3>
+<div class="text-center">
+  <%= form_for EssaySim.new, :as => :essay_sim, :url => {action: "create", method: "post"} do |e| %>
+    <%= e.label "Grader" %>
+    <%= e.email_field :graderEmail, class: "form-control", :autofocus => true %>
+    <hr>
+    <%= e.label "Essay" %>
+    <%= e.file_field :essay, class: "form-control", accept: "application/pdf, text/plain, application/msword" %>
+    <br>
+    <%= e.label "Article Reference #1" %>
+    <%= e.text_field :article1, class: "form-control", autocomplete: :off %>
+    <%= e.label "Article Reference #2" %>
+    <%= e.text_field :article2, class: "form-control", :autocomplete => :off %>
+    <%= e.label "Article Reference #3" %>
+    <%= e.text_field :article3, class: "form-control", :autocomplete => :off %>
+    <hr>
+    <%= e.submit "Send", class: "btn btn-primary" %>
+    <hr>
+  <% end %>
+</div>

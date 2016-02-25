@@ -3,3 +3,7 @@
 <div class="text-center">
   <%= button_tag 'Start Timer', :class => "btn btn-primary btn-lg" %>
 </div>
+
+<% content_for :header do
+    javascript_include_tag 'application', 'data-turbolinks-track' => true
+end %>

@@ -1,22 +1,25 @@
 <head>
   <style>
-    .essayText
+    .articleText
     {
-      width: 80%;
+      width: 60%;
       float: left;
     }
-    .essayQuestions
+    .articleQuestions
     {
-      width: 20%;
+      width: 40%;
       float: left;
     }
   </style>
 </head>
 <body>
+  <h3 class="text-left">Article Questioning</h3>
   <div class="localContainer">
-    <div class="essayText">
-      <%= render 'essay_sim/sameple_text' %>
+    <div class="articleText text-left">
+      <%= render 'article_questioning/sample_text' %>
     </div>
-    <div class="essayQuestions"></div>
+    <div class="articleQuestions">
+      <%= render 'article_questioning/sample_questions' %>
+    </div>
   </div>
 </body>
