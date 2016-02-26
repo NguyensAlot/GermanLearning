@@ -1,8 +1,11 @@
 FactoryGirl.define do
   factory :article_questioning do
     article "MyText"
-answer_choices "MyString"
-correct_answer "MyString"
+questions "MyText"
+answer_choices "MyText"
+correct_answers "MyText"
+num_of_questions 1
+num_of_answer_choices 1
   end
 
 end

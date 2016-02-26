@@ -5,7 +5,7 @@ class EssaySimController < ApplicationController
   
   def create 
     @essaySim = EssaySim.new(params[:essay_sim])
-    @essaySim.userEmail = current_user.email
+    @essaySim.user_email = current_user.email
     if @essaySim.save()
       EssayMailer.send_essay(@essaySim).deliver_now
     end

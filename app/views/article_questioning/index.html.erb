@@ -1,4 +1,6 @@
 <h3 class="text-left">Article Questioning</h3>
 <div class="text-center">
-  <%= link_to "Next", article_questioning_path(1) %>
+  <% @articles.each do |a| %>
+    <h4><%= link_to "Sample " + a.id.to_s, article_questioning_path(a) %></h4><hr>
+  <% end %>
 </div>

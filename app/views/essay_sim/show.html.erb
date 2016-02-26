@@ -2,7 +2,7 @@
 <div class="text-center">
   <%= form_for EssaySim.new, :as => :essay_sim, :url => {action: "create", method: "post"} do |e| %>
     <%= e.label "Grader" %>
-    <%= e.email_field :graderEmail, class: "form-control", :autofocus => true %>
+    <%= e.email_field :grader_email, class: "form-control", :autofocus => true %>
     <hr>
     <%= e.label "Essay" %>
     <%= e.file_field :essay, class: "form-control", accept: "application/pdf, text/plain, application/msword" %>

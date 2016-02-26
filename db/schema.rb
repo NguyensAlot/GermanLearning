@@ -11,25 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225071750) do
+ActiveRecord::Schema.define(version: 20160225204357) do
 
   create_table "article_questionings", force: :cascade do |t|
     t.text     "article"
-    t.string   "answer_choices"
-    t.string   "correct_answer"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.text     "questions"
+    t.text     "answer_choices"
+    t.text     "correct_answers"
+    t.integer  "num_of_questions"
+    t.integer  "num_of_answer_choices"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "essay_sims", force: :cascade do |t|
-    t.string   "graderEmail"
-    t.text     "essay"
-    t.string   "article1"
-    t.string   "article2"
-    t.string   "article3"
-    t.string   "userEmail"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.string "grader_email"
+    t.text   "essay"
+    t.string "article1"
+    t.string "article2"
+    t.string "article3"
+    t.string "user_email"
   end
 
   create_table "flashcards", force: :cascade do |t|

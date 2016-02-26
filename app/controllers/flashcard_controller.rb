@@ -9,8 +9,5 @@ class FlashcardController < ApplicationController
   
   def show
     @practiceSet = Flashcard.where('set_name' => params[:set_name])
-    @practiceSet.each do |s|
-      
-    end
   end 
 end
