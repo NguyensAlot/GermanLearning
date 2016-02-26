@@ -1,8 +1,3 @@
-function hello()
-{
-  alert("blah");
-}
-
 function Card(front, back)
 {
   this.frontVal = front;
@@ -76,13 +71,3 @@ var flashcardHandler =
     this.cardUpdate();// Display card
   },
 };
-    
-    // function setLoad()
-    // {
-    //   alert('hello');
-    //   <%#= @practiceSet.each do |s| %>
-    //     flashcardHandler.flashcardSet.push(new Card(<%= s.definition %>, <%= s.word %>));
-    //     flashcardHandler.cardUpdate();
-    //   <%# end %>
-    //   alert('bye');
-    // };

@@ -4,6 +4,53 @@
   <%= button_tag 'Start Timer', :class => "btn btn-primary btn-lg" %>
 </div>
 
-<% content_for :header do
-    javascript_include_tag 'application', 'data-turbolinks-track' => true
-end %>
+<audio id="player" src=""></audio>
+<audio id="recorder" src=""></audio>
+<audio id="echoplayer" src=""></audio>
+
+
+<div class="container">
+  <audio id="player" src=""></audio>
+  <audio id="recorder" src=""></audio>
+  <audio id="echoplayer" src=""></audio>
+      
+  <h2>Test 1 -- play a random sound</h2>
+  <div class="word" id="word239" data-files="[612,614,617]">
+    <a class="btn btn-default" onclick="files=$.map($('#word239').data('files'),function(a){return 'https://learnwithecho.com/wordFiles/176/239/'+a});playRandom(files)">Play random file</a> 
+  </div> 
+  <hr>
+      
+  <h2>Test 2 -- request access to user microphone</h2>
+  <a class="btn btn-default" onclick="getUserMedia({audio:true}, function(){$('.enableWhenGotUserMediaStream').removeClass('disabled')})">
+    Get user media
+  </a>
+  <hr>
+    
+  <h2>Test 3 -- record sound with VU meter and playback</h2>
+  <a class="btn btn-default pull-left disabled enableWhenGotUserMediaStream" onclick="startStopPractice(this,$('#echoButton'),$('#practiceVolume'),$('#echoplayer'))">
+    <i class="glyphicon glyphicon-ice-lolly"></i>
+  </a>
+  <a class="btn btn-default pull-left disabled" onclick="startEcho($('#echoplayer'))" id="echoButton">
+    <i class="glyphicon glyphicon-play"></i>
+  </a>
+  <div class="progress" style="height: 38px; width: 200px">
+    <div class="progress-bar" id="practiceVolume" style="width: 0%; transition:none"></div>
+  </div>
+  <hr>
+</div>
+
+<%# content_for :header do %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+<%# end %>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-52764-14']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>

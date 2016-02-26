@@ -1,4 +1,4 @@
-<%= form_tag(request.original_url) do |a|%>
+<%= form_tag(a) do |a|%>
     <% for i in 0..@article.num_of_questions-1 do %>
         <p><%= @article.questions.split("~!@")[i] %></p>
         <% for j in 0..@article.num_of_answer_choices-1 do %>
@@ -9,4 +9,4 @@
         <hr>
     <% end %>
     <%= submit_tag "Submit" %>
-<% end %>
+<% end %> 
