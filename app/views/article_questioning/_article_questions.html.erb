@@ -1,4 +1,4 @@
-<%= form_tag(a) do |a|%>
+<%= form_tag('article_questioning/index') do |a|%>
     <% for i in 0..@article.num_of_questions-1 do %>
         <p><%= @article.questions.split("~!@")[i] %></p>
         <% for j in 0..@article.num_of_answer_choices-1 do %>
