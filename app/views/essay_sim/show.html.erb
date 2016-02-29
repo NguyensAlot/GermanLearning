@@ -1,11 +1,11 @@
-<h3 class="text-left">Essay Simulation</h3>
+<h3 class="text-left">Essay Simulation: Upload for Grader</h3>
 <div class="text-center">
   <%= form_for EssaySim.new, :as => :essay_sim, :url => {action: "create", method: "post"} do |e| %>
     <%= e.label "Grader" %>
     <%= e.email_field :grader_email, class: "form-control", :autofocus => true %>
     <hr>
     <%= e.label "Essay" %>
-    <%= e.file_field :essay, class: "form-control", accept: "application/pdf, text/plain, application/msword" %>
+    <%= e.file_field :essay, class: "form-control", accept: "application/pdf, text/plain, application/msword", id: "fileName" %>
     <br>
     <%= e.label "Article Reference #1" %>
     <%= e.text_field :article1, class: "form-control", autocomplete: :off %>

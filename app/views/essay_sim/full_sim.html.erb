@@ -1,1 +1,30 @@
-<h3>Full Sim</h3>
+<h3 class="text-left">Essay Simulation: Full Simulation</h3>
+<div class="text-center">
+  <%= form_for EssaySim.new, :as => :essay_sim, :url => {action: "create", method: "post"} do |e| %>
+    <%= e.label "Grader" %>
+    <%= e.email_field :grader_email, class: "form-control", :autofocus => true %>
+    <hr>
+    <%= e.label "Essay" %>
+    <%= e.text_area :essay, class: "form-control", id: "essayText", onkeypress: "getCharCount()", onchange: "getCharCount()" %>
+    <p class="text-left" id="characterCount">character count: </p>
+    <br>
+    <%= e.label "Article Reference #1" %>
+    <%= e.text_field :article1, class: "form-control", autocomplete: :off %>
+    <%= e.label "Article Reference #2" %>
+    <%= e.text_field :article2, class: "form-control", :autocomplete => :off %>
+    <%= e.label "Article Reference #3" %>
+    <%= e.text_field :article3, class: "form-control", :autocomplete => :off %>
+    <hr>
+    <%= e.submit "Send", class: "btn btn-primary" %>
+    <hr>
+  <% end %>
+</div>
+<script>
+  function getCharCount()
+  {
+    var text = document.getElementById("characterCount");
+    var essay = document.getElementById("essayText");
+    
+    text.innerHTML = "character count: " + essay.value.length;
+  }
+</script>
