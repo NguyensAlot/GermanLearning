@@ -32,6 +32,8 @@ gem 'spring-commands-rspec'
 gem 'protected_attributes'
 # foreign function interface
 gem 'ffi', '~> 1.9.0'
+# a library for extracting text and metadata from files and documents using the Apache Tika content analysis toolkit
+gem 'yomu'
 
 group :development do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
