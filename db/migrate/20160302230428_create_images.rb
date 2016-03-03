@@ -4,9 +4,7 @@ class CreateImages < ActiveRecord::Migration
       t.text :title
       t.text :description
       t.text :source
-      t.text :copyright
-
-      t.timestamps null: false
+      t.text :category
     end
   end
 end

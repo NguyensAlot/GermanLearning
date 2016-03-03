@@ -57,13 +57,14 @@
 </head>
 
 <h3>Images</h3>
+<%= button_to "All Images", image_interpretation_index_path, :class => "btn btn-lg btn-primary", :method => :get %>
 <div class="localContainer">
-  <% @image.each do |i| %>
+  <% @filteredImage.each do |i| %>
     <div class="galleryItem">
       <%= link_to image_tag(i.source), image_interpretation_path(i) %>
       <h4><%= i.title %></h4>
       <p><%= i.description %></p>
-      <%= link_to i.category, filter_image_interpretation_index_path(:category => i.category) %>
+      <p><%= link_to i.category, filter_image_interpretation_index_path(:category => i.category) %></p>
     </div>
   <% end %>
 </div>
