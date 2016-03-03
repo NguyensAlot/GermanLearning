@@ -1,26 +1,19 @@
-<body>
-  <div class="text-center">
-      <div id="flashcardSetContainer" class="form-group center-block">
-      
-        <div>
-        </div>
-        <input type="text" id="set_name" class="form-control" placeholder="Title" autofocus>
-    
-        <div id="savedCards"></div>
-    
-        <label id="cardNumber">Enter your word and definition</label><br>
-        <input type="text" id="frontOfCard" class="form-control" placeholder="front">
-        <input type="text" id="backOfCard" class="form-control" placeholder="back" onkeydown = "if (event.keyCode == 13) document.getElementById('addCardBtn').click()">
-      </div>
-    
-      <button id="addCardBtn" class="btn btn-default" onclick="flashcardHandler.cardAdd()" >Add</button>
-    
-      <button type="submit" class="btn btn-default" onclick="flashcardHandler.cardStoreSetAJAX()">Create!</button>
-      <div id="displaySet"></div>
-    
-      <h1><%= link_to 'Flashcard Sets', 'flashcard', :class => 'button center' %></h1>
-      <div id="invisibleForm"></div>
+<div class="text-center">
+  <div id="flashcardSetContainer" class="form-group center-block">
+    <input type="text" id="set_name" class="form-control" placeholder="Title" autofocus>
+    <div id="savedCards"></div>
+    <label id="cardNumber">Enter your word and definition</label><br>
+    <input type="text" id="frontOfCard" class="form-control" placeholder="front">
+    <input type="text" id="backOfCard" class="form-control" placeholder="back" onkeydown = "if (event.keyCode == 13) document.getElementById('addCardBtn').click()">
   </div>
+    
+  <button id="addCardBtn" class="btn btn-default" onclick="flashcardHandler.cardAdd()" >Add</button>
+  <button type="submit" class="btn btn-default" onclick="flashcardHandler.cardStoreSetAJAX()">Create!</button>
+  <div id="displaySet"></div>
+    
+  <h1><%= link_to 'Flashcard Sets', 'flashcard', :class => 'button center' %></h1>
+  <div id="invisibleForm"></div>
+</div>
   
 <script type="text/javascript">
   function Card(front, back)
@@ -110,5 +103,3 @@
     
   }
 </script>
-
-</body>

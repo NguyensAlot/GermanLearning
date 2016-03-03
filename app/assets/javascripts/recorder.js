@@ -2,7 +2,7 @@
 // 7a01c32de7cbe21ebb75aaa00ab30b32f610c1a3
 (function(window){
 
-  var WORKER_PATH = '/assets/javascripts/recorderWorker.js';
+  var WORKER_PATH = '/assets/recorderWorker';
 
   var Recorder = function(source, cfg){
     var config = cfg || {};

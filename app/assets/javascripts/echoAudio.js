@@ -4,14 +4,10 @@ $.ajaxSetup({ cache: true }); /* http://forum.jquery.com/topic/jquery-turn-off-c
 //$.getScript("/AudioContextMonkeyPatch.js");
 //$.getScript("/recorder.js");
 /* http://stackoverflow.com/questions/1130921/is-the-callback-on-jquerys-getscript-unreliable-or-am-i-doing-something-wrong */
-$.ajax({url:"/assets/javascripts/AudioContextMonkeyPatch.js",dataType:'script',async:false}); 
-$.ajax({url:"/assets/javascripts/recorder.js",dataType:'script',async:false});
-
-
-function playRandom(files){
-  $('#player')[0].src=files[Math.floor(Math.random()*files.length)];
-  $('#player')[0].play();
-}
+//$.ajax({url:"https://learnwithecho.com/AudioContextMonkeyPatch.js",dataType:'script',async:false}); 
+//$.ajax({url:"https://learnwithecho.com/recorder.js",dataType:'script',async:false});
+$.getScript("/assets/AudioContextMonkeyPatch");
+$.getScript("/assets/recorder");
 
 var theStream, recorder, recording = 0, fftSize = 2048;
 var audioContext; 
@@ -73,13 +69,13 @@ function redrawAnalysis( time ) {
 var progressElem;
 function startStopPractice(startStopButton, echoButton, progressBar, playerElem){
   progressElem = $(progressBar);
-  if ($(startStopButton).find('i').hasClass('icon-stop')) {
-    $(startStopButton).find('i').addClass('icon-microphone').removeClass('icon-stop');
+  if ($(startStopButton).find('i').hasClass('glyphicon-stop')) {
+    $(startStopButton).find('i').addClass('glyphicon-ice-lolly').removeClass('glyphicon-stop');
     $(echoButton).removeClass('disabled');      
     stopRecording(playerElem);
     progressElem.css('width', '0px');
   } else {
-    $(startStopButton).find('i').addClass('icon-stop').removeClass('icon-microphone');
+    $(startStopButton).find('i').addClass('glyphicon-stop').removeClass('glyphicon-ice-lolly');
     startRecording();
   }
 }
@@ -97,10 +93,11 @@ function stopRecording(playerElem) {
       $(playerElem).get(0).src = window.URL.createObjectURL(s);
       $(playerElem).data("blob",s);
     }, 'audio/wav');
+    
 }
 
 function startEcho(playerElem){
-    $('.icon-stop').addClass('icon-microphone').removeClass('icon-stop');
+    $('.glyphicon-stop').addClass('glyphicon-ice-lolly').removeClass('glyphicon-stop');
     doPlayback(playerElem);
 }
 

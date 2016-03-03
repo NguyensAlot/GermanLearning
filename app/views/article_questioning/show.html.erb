@@ -5,23 +5,25 @@
     .articleText
     {
       width: 60%;
+      height: 100%;
+      font-size: 20px;
       float: left;
+      overflow: auto;
     }
     .articleQuestions
     {
       width: 40%;
+      height: 100%;
       float: left;
+      overflow: auto;
     }
+    
   </style>
 </head>
-<body>
-  <h3 class="text-left">Article Questioning</h3>
-  <div class="localContainer">
-    <div class="articleText text-left">
-      <p style="{font-size: 200%}"><%= render 'article_questioning/article_text' %></p>
-    </div>
-    <div class="articleQuestions">
-      <%= render 'article_questioning/article_questions' %>
-    </div>
-  </div>
-</body>
+<h3 class="text-left">Article Questioning</h3>
+<div class="articleText text-left">
+  <p><%= render 'article_questioning/article_text' %></p>
+</div>
+<div class="articleQuestions">
+  <%= render 'article_questioning/article_questions' %>
+</div>

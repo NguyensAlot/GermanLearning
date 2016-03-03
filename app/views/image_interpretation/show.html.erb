@@ -1,24 +1,14 @@
-<h3 class="text-center">Describing Image <%= @selectedImage.title %></h3>
+<h3 class="text-center">Describing Image "<%= @selectedImage.title %>"</h3>
 <%= image_tag(@selectedImage.source) %>
 <div class="text-center">
   <%= button_tag 'Start Timer', :class => "btn btn-primary btn-lg" %>
 </div>
 
-<audio id="player" src=""></audio>
-<audio id="recorder" src=""></audio>
-<audio id="echoplayer" src=""></audio>
-
-
 <div class="container">
   <audio id="player" src=""></audio>
   <audio id="recorder" src=""></audio>
   <audio id="echoplayer" src=""></audio>
-      
-  <h2>Test 1 -- play a random sound</h2>
-  <div class="word" id="word239" data-files="[612,614,617]">
-    <a class="btn btn-default" onclick="files=$.map($('#word239').data('files'),function(a){return 'https://learnwithecho.com/wordFiles/176/239/'+a});playRandom(files)">Play random file</a> 
-  </div> 
-  <hr>
+
       
   <h2>Test 2 -- request access to user microphone</h2>
   <a class="btn btn-default" onclick="getUserMedia({audio:true}, function(){$('.enableWhenGotUserMediaStream').removeClass('disabled')})">
@@ -26,31 +16,140 @@
   </a>
   <hr>
     
+  <!--Record button-->
   <h2>Test 3 -- record sound with VU meter and playback</h2>
   <a class="btn btn-default pull-left disabled enableWhenGotUserMediaStream" onclick="startStopPractice(this,$('#echoButton'),$('#practiceVolume'),$('#echoplayer'))">
     <i class="glyphicon glyphicon-ice-lolly"></i>
   </a>
+  <!--Play button-->
   <a class="btn btn-default pull-left disabled" onclick="startEcho($('#echoplayer'))" id="echoButton">
     <i class="glyphicon glyphicon-play"></i>
   </a>
+  <!--Progress Bar-->
   <div class="progress" style="height: 38px; width: 200px">
     <div class="progress-bar" id="practiceVolume" style="width: 0%; transition:none"></div>
   </div>
   <hr>
 </div>
+<div id="downloadLink"></div>
 
-<%# content_for :header do %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-<%# end %>
+<%= javascript_include_tag '/assets/echoAudio' %>
+<%#= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 
 <script type="text/javascript">
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-52764-14']);
-  _gaq.push(['_trackPageview']);
+/*var theStream, recorder, recording = 0, fftSize = 2048;
+var audioContext; 
+var buf = new Uint8Array( fftSize );
+var analyser;
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+function getUserMedia(dictionary, extraCallback) {
+  try {
+      audioContext = new window.AudioContext();
+      if (!navigator.getUserMedia)
+      	navigator.getUserMedia = navigator.webkitGetUserMedia;
+      var error = function(){alert('Stream generation failed.')};
+      navigator.getUserMedia(dictionary, function(stream){gotUserMediaStream(stream), extraCallback(stream)}, error);
+  } catch (e) {
+      console.log('getUserMedia threw exception :' + e);
+  }
+}
+
+function convertToMono( input ) {
+    var splitter = audioContext.createChannelSplitter(2);
+    var merger = audioContext.createChannelMerger(2);
+    input.connect( splitter );
+    splitter.connect( merger, 0, 0 );
+    splitter.connect( merger, 0, 1 );
+    return merger;
+}
+
+function gotUserMediaStream(stream) {
+  theStream = stream;
+  
+  // Create an AudioNode from the stream.
+  var mediaStreamSource = audioContext.createMediaStreamSource(stream);
+
+  // Connect recorder
+  recorder = new window.Recorder(mediaStreamSource);
+
+  // Connect it to the destination
+  analyser = audioContext.createAnalyser();
+  analyser.fftSize = fftSize;
+  convertToMono( mediaStreamSource ).connect( analyser );
+}
+
+function redrawAnalysis( time ) {
+	var cycles = new Array;
+	analyser.getByteTimeDomainData( buf );
+  var sum=0;
+  for (var i=0; i<fftSize; i++) {
+    sum += Math.pow(buf[i]-128,2);
+  }
+  progressElem.css('width', (recording*Math.sqrt(sum/fftSize)*20)+'%');
+  if (recording) {
+    if (!window.requestAnimationFrame)
+	  	window.requestAnimationFrame = window.webkitRequestAnimationFrame;
+  	var rafID = window.requestAnimationFrame( redrawAnalysis );
+  }
+  return 0;
+}
+
+var progressElem;
+function startStopPractice(startStopButton, echoButton, progressBar, playerElem){
+  progressElem = $(progressBar);
+  if ($(startStopButton).find('i').hasClass('glyphicon-stop')) {
+    $(startStopButton).find('i').addClass('glyphicon-ice-lolly').removeClass('glyphicon-stop');
+    $(echoButton).removeClass('disabled');      
+    stopRecording(playerElem);
+    progressElem.css('width', '0px');
+  } else {
+    $(startStopButton).find('i').addClass('glyphicon-stop').removeClass('glyphicon-ice-lolly');
+    startRecording();
+  }
+}
+
+function startRecording() {
+    if (recorder) {recorder.clear();recorder.record();}
+    recording = 1;
+    redrawAnalysis();
+}
+
+function stopRecording(playerElem) {
+    recording = 0;
+    recorder.stop();
+    recorder.exportWAV(function(s) {
+      $(playerElem).get(0).src = window.URL.createObjectURL(s);
+      $(playerElem).data("blob",s);
+    }, 'audio/wav');
+    
+}
+
+function startEcho(playerElem){
+    $('.glyphicon-stop').addClass('glyphicon-ice-lolly').removeClass('glyphicon-stop');
+    doPlayback(playerElem);
+}
+
+function doPlayback(playerElem) {
+    $(playerElem).get(0).play();
+}
+
+function createDownloadLink()
+{
+  recorder && recorder.exportWAV(function(blob) {
+    var url = URL.createObjectURL(blob);
+    var li = document.createElement('li');
+    var au = document.createElement('audio');
+    var hf = document.createElement('a');
+      
+    au.controls = true;
+    au.src = url;
+    hf.href = url;
+    hf.download = new Date().toISOString() + '.wav';
+    hf.innerHTML = hf.download;
+    li.appendChild(au);
+    li.appendChild(hf);
+    downloadLink.appendChild(li);
+  });
+}
+*/
 </script>
