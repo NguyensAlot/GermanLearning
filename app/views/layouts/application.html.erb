@@ -8,6 +8,10 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= yield :header %>
     <%= csrf_meta_tags %>
+    <style>
+        .goog-te-banner-frame.skiptranslate {display: none !important;} 
+        body { top: 0px !important; }
+    </style>
   </head>
   <body>
     <header>
@@ -18,5 +22,6 @@
        <%= render 'layouts/messages' %>
        <%= yield %>
     </main>
+    <%= render 'layouts/translator_plugin' %>
   </body>
 </html>

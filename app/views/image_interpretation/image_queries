@@ -13,7 +13,7 @@ image.save()
 image = Image.new(title: "Coming-Home", description: "A man is coming home from work and entering his house", source: "http://images.library.pitt.edu/cgi-bin/i/image/getimage-idx?cc=visuals;entryid=x-moviescene01;viewid=MOVIE-SCENE_01.TIF;quality=m800;view=image", category: "Leisure")
 image.save()
 
-image = Image.new(title: "", description: "", source: "", category: )
+image = Image.new(title: "Blood Pressure", description: "Man is getting his blood pressure checked with a doctor", source: "http://images.library.pitt.edu/cgi-bin/i/image/getimage-idx?cc=visuals;entryid=x-bloodpressure;viewid=BLOOD_PRESSURE.TIF;quality=m800;view=image", category: "Health")
 image.save()
 
 image = Image.new(title: "", description: "", source: "", category: )
