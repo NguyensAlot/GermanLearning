@@ -1,6 +1,0 @@
-    <div class="galleryItem">
-      <%= link_to image_tag(i.source), image_interpretation_path(i) %>
-      <h4><%= i.title %></h4>
-      <p><%= i.description %></p>
-      <p><%= link_to i.category, filter_image_interpretation_index_path(:category => i.category) %></p>
-    </div>

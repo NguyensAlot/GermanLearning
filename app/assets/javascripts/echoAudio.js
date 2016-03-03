@@ -1,13 +1,13 @@
 /* Requires jQuery */
 
-$.ajaxSetup({ cache: true }); /* http://forum.jquery.com/topic/jquery-turn-off-cache-busting-in-getscript */
+//$.ajaxSetup({ cache: true }); /* http://forum.jquery.com/topic/jquery-turn-off-cache-busting-in-getscript */
 //$.getScript("/AudioContextMonkeyPatch.js");
 //$.getScript("/recorder.js");
 /* http://stackoverflow.com/questions/1130921/is-the-callback-on-jquerys-getscript-unreliable-or-am-i-doing-something-wrong */
-//$.ajax({url:"https://learnwithecho.com/AudioContextMonkeyPatch.js",dataType:'script',async:false}); 
+//$.ajax({url:"https://learnwithecho.com/AudioContextMonkeyPatch.js",dataType:'script'}); 
 //$.ajax({url:"https://learnwithecho.com/recorder.js",dataType:'script',async:false});
-$.getScript("/assets/AudioContextMonkeyPatch");
-$.getScript("/assets/recorder");
+//$.getScript("/assets/javascripts/AudioContextMonkeyPatch.js");
+//$.getScript("/assets/javascripts/recorder.js");
 
 var theStream, recorder, recording = 0, fftSize = 2048;
 var audioContext; 
