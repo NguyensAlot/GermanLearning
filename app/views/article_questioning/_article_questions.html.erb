@@ -2,7 +2,7 @@
     <% for i in 0..@article.num_of_questions-1 do %>
         <p><%= @article.questions.split("~!@")[i] %></p>
         <% for j in 0..@article.num_of_answer_choices-1 do %>
-            <%= radio_button_tag @article.questions.split("~!@")[i], @article.answer_choices.split("~!@")[j].to_s[2], false %>
+            <%= radio_button_tag @article.questions.split("~!@")[i], @article.answer_choices.split("~!@")[j].to_s[0], false %>
             <span><%= @article.answer_choices.split("~!@")[j+(i*@article.num_of_answer_choices)] %></span>
             <p></p>
         <% end %>

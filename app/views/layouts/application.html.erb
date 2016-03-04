@@ -9,13 +9,22 @@
     <%= yield :header %>
     <%= csrf_meta_tags %>
     <style>
-        .goog-te-banner-frame.skiptranslate {display: none !important;} 
-        body { top: 0px !important; }
+       #google_translate_element {
+         position: absolute;
+         left: -5px;
+         z-index: 1;
+       }
+       #header {
+         margin-top: 5px;
+       }
+      .goog-te-banner-frame.skiptranslate {display: none !important;} 
+      body { top: 0px !important; }
     </style>
   </head>
   <body>
     <header>
       <%= render 'layouts/navigation' %>
+      
     </header>
     <main role="main">
       <h1>German Learning</h1>

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   end
   resources :essay_sim
   resources :article_questioning
+  resources :quiz_results
   #match 'flashcard', to: 'flashcard#create', via: [:post]
   get 'create_flashcard_set', to: 'flashcard#create'
   get 'practice_flashcards', to: 'flashcard#flashcard'

@@ -1,0 +1,23 @@
+<%= form_for QuizResult.new, :as => :quiz_results, :url => {action: "create", method: "post"} do |q|%>
+    <!--Loop through all available questions-->
+    <% for i in 0..@article.num_of_questions-1 do %>
+        <!--Quiz questions-->
+        <p><%= @article.questions.split("~!@")[i] %></p>
+        <!--Loop through all available answers for question-->
+        <% for j in 0..@article.num_of_answer_choices-1 do %>
+            <!--Create radio button for each answer choice-->
+            <%= radio_button_tag @article.questions.split("~!@")[i], @article.answer_choices.split("~!@")[j].to_s[0], false %>
+            <!--Answer choice text-->
+            <span><%= @article.answer_choices.split("~!@")[j+(i*@article.num_of_answer_choices)] %></span>
+            <p></p>
+        <% end %>
+        <hr>
+    <% end %>
+    <!---->
+    <input type="hidden" name="quiz_results[article_questioning_id]" value="<%=raw @article.id %>">
+    <!---->
+    <input type="hidden" name="quiz_results[user_id]" value="<%=raw @user.id %>">
+    <!---->
+    <input type="hidden" name="quiz_results[answers_correct]" value="<%=raw @article.correct_answers %>">
+    <%= q.submit "Submit" %>
+<% end %> 
