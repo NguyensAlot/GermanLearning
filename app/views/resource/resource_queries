@@ -1,0 +1,2 @@
+@res = Resource.create(title: "Basic German", resource_link: "http://jmp.sh/oIbu6q5", description: "Document that explains basics to German language", resource_type: "link")
+@res = Resource.create(title: "Research Guide", resource_link: "http://jmp.sh/73UNLDU", description: "PDF with a small guide on finding resources", resource_type: "link")
