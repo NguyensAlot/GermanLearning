@@ -1,19 +1,19 @@
 Hi,
 
-Here is the essay text:
+Here is the essay text:<%=raw "\n" %>
 _____________________________________________
-<%=h @essay_pkg.essay %>
+<%=raw @essay_pkg.essay.to_s + "\n" %>
 _____________________________________________
 
 Here are the 3 references required:
 _____________________________________________
-<%=h @essay_pkg.article1 %>
-<%=h @essay_pkg.article2 %>
-<%=h @essay_pkg.article3 %>
+<%=raw @essay_pkg.article1.to_s + "\n" %>\n
+<%=raw @essay_pkg.article2.to_s + "\n" %>\n
+<%=raw @essay_pkg.article3.to_s + "\n" %>\n
 _____________________________________________
 
-Thank you for reviewing,
-<%= @essay_pkg.user_email %>
+Thank you for reviewing,<%=raw "\n" %>
+<%=raw @essay_pkg.user_email %>
 
 
 This email was sent by 'German Learning' through an automated service
