@@ -32,7 +32,7 @@ var flashcardHandler =
     var parsedJSON = JSON.parse(setAsJSON);
     for (var i = 0; i < parsedJSON.length; i++)
     {
-      this.flashCardSet.push(new Card(parsedJSON[i].word, parsedJSON[i].definition));
+      this.flashCardSet.push(new Card(parsedJSON[i].definition, parsedJSON[i].word));
     }
     this.cardUpdate();
   },
