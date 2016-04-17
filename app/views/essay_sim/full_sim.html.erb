@@ -5,7 +5,7 @@
     <%= e.email_field :grader_email, class: "form-control", :autofocus => true %>
     <hr>
     <%= e.label "Essay" %>
-    <%= e.text_area :essay, class: "form-control", id: "essayText", onkeypress: "getCharCount()", onchange: "getCharCount()" %>
+    <%= e.text_area :essay, class: "form-control", id: "essayText", onkeypress: "getCharCount()", onchange: "getCharCount()", onpaste: "getCharCount()" %>
     <p class="text-left" id="characterCount">character count: </p>
     <br>
     <%= e.label "Article Reference #1" %>
@@ -15,7 +15,7 @@
     <%= e.label "Article Reference #3" %>
     <%= e.text_field :article3, class: "form-control", :autocomplete => :off %>
     <hr>
-    <%= e.submit "Send", class: "btn btn-primary" %>
+    <%= e.submit "Send", class: "btn btn-primary", id: "btnSend", disabled: "true" %>
     <hr>
   <% end %>
 </div>
@@ -24,7 +24,12 @@
   {
     var text = document.getElementById("characterCount");
     var essay = document.getElementById("essayText");
+    var send = document.getElementById("btnSend");
+    var count = essay.value.length;
     
-    text.innerHTML = "character count: " + essay.value.length;
+    text.innerHTML = "character count: " + count;
+    
+    if (count < 2000) send.disabled = true;
+    else send.disabled = false;
   }
 </script>

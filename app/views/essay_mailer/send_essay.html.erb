@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    
-  </head>
   <body>
     <p>Hi,</p><br>
 
-    <p>Here is the essay text:</p><br>
-    _____________________________________________
-    <p><%= @essay_pkg.essay.to_s %></p>
-    _____________________________________________
+    <p>Here is the essay text:</p>
     
-    <p>Here are the 3 references required:</p><br>
-    _____________________________________________
+    <p><%= @essay_pkg.essay.to_s %></p>
+    
+    <p>Here are the 3 references required:</p>
+    
     <p><%= @essay_pkg.article1.to_s %></p><br>
     <p><%= @essay_pkg.article2.to_s %></p><br>
     <p><%= @essay_pkg.article3.to_s %></p><br>
-    _____________________________________________
     
-    Thank you for reviewing,
+    <p>Thank you for reviewing,</p>
     <p><%= @essay_pkg.user_email %></p>
     
     
