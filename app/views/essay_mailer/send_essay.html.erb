@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+  </head>
+  <body>
+    <p>Hi,</p><br>
+
+    <p>Here is the essay text:</p><br>
+    _____________________________________________
+    <p><%= @essay_pkg.essay.to_s %></p>
+    _____________________________________________
+    
+    <p>Here are the 3 references required:</p><br>
+    _____________________________________________
+    <p><%= @essay_pkg.article1.to_s %></p><br>
+    <p><%= @essay_pkg.article2.to_s %></p><br>
+    <p><%= @essay_pkg.article3.to_s %></p><br>
+    _____________________________________________
+    
+    Thank you for reviewing,
+    <p><%= @essay_pkg.user_email %></p>
+    
+    
+    <p>This email was sent by 'German Learning' through an automated service</p>
+  </body>
+</html>
