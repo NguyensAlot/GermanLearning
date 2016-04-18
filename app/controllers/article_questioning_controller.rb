@@ -9,7 +9,7 @@ class ArticleQuestioningController < ApplicationController
   
   def create
     @quiz = QuizResult.new(params[:quiz_results])
-    if @quiz.save()
+    if @quiz.save
       @article = ArticleQuestioning.find(@quiz.article_questioning_id)
     end
   end

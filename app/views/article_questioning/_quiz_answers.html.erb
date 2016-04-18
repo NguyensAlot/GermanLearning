@@ -2,9 +2,11 @@
     <% for i in 0..@article.num_of_questions-1 do %>
         <p><%= @article.questions.split("~!@")[i] %></p>
         <% for j in 0..@article.num_of_answer_choices-1 do %>
-            <!--<%#= radio_button_tag @article.questions.split("~!@")[i], @article.answer_choices.split("~!@")[j].to_s[0], false %>-->
+            
+            <!--Check if the answer is correct, if so highlight green-->
             <% if @article.correct_answers.split("~!@")[i] == @article.answer_choices.split("~!@")[j].to_s[0] %>
               <span style="color:green;font-weight:bold"><%= @article.answer_choices.split("~!@")[j+(i*@article.num_of_answer_choices)] %></span>
+        
             <% else %>
               <span><%= @article.answer_choices.split("~!@")[j+(i*@article.num_of_answer_choices)] %></span>
             <% end %>
