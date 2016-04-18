@@ -5,4 +5,4 @@ The web application is currently hosted by Heroku and you may visit the website 
 
 [German Learning](https://morning-everglades-67680.herokuapp.com)
 
-## Developed by Anthony Nguyen
+###### Developed by [Anthony Nguyen](https://github.com/NguyensAlot)
